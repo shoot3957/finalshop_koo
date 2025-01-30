@@ -77,13 +77,11 @@ public class MemberDAO {
         if (lines != null) {
             for (String line : lines) {
                 String[] parts = line.split("/");
-                if (parts.length == 3) {
-                    String id = parts[0];
-                    String password = parts[1];
-                    String name = parts[2];
-                    Member member = new Member(id, password, name);
-                    members.put(id, member);
-                }
+                String id = parts[1];
+                String password = parts[2];
+                String name = parts[3];
+                Member member = new Member(id, password, name);
+                members.put(id, member);
             }
             System.out.println("회원 정보 로드 완료");
         }
