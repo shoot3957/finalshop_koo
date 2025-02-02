@@ -48,13 +48,16 @@ public class MemberDAO {
         return null;  // 유효하지 않은 회원이면 null 반환
     }
 
-    // 기타 메서드 (insertMember, getAllMembers 등)
     public boolean insertMember(String id, String password, String name) {
         if (members.containsKey(id)) return false;
-        members.put(id, new Member(id, password, name));
-        saveMembers();  // 회원 저장
+
+        Member newMember = new Member(id, password, name);
+        members.put(id, newMember);
+        saveMember(newMember);  // 기존 saveMembers() 대신 saveMember() 사용
+
         return true;
     }
+
 
     public Member getMemberById(String id) {
         return members.get(id);
@@ -64,26 +67,33 @@ public class MemberDAO {
         return new ArrayList<>(members.values());
     }
 
+    public void saveMember(Member member) {
+        String line = member.getMemberNum() + "/" + member.getId() + "/" + member.getPassword() + "/" + member.getMemberName();
+        Util.appendLineToFile("C:/koo/githubWorkspace/level10/finalshop_koo/finalshop_koo/src/file/member.txt", line);
+    }
     public void saveMembers() {
         List<String> lines = new ArrayList<>();
         for (Member member : members.values()) {
-            lines.add(member.getId() + "/" + member.getPassword() + "/" + member.getMemberName());
+            lines.add(member.getMemberNum() + "/" + member.getId() + "/" + member.getPassword() + "/" + member.getMemberName());
         }
-        Util.writeLinesToFile("C:/koo/githubWorkspace/level10/finalshop_koo/finalshop_koo/src/file/member.txt", lines);  // 파일로 저장
+        Util.writeLinesToFile("C:/koo/githubWorkspace/level10/finalshop_koo/finalshop_koo/src/file/member.txt", lines);
     }
 
     private void loadMembers() {
-        List<String> lines = Util.readLinesFromFile("C:/koo/githubWorkspace/level10/finalshop_koo/finalshop_koo/src/file/member.txt");  // 파일 읽기
+        List<String> lines = Util.readLinesFromFile("C:/koo/githubWorkspace/level10/finalshop_koo/finalshop_koo/src/file/member.txt");
         if (lines != null) {
             for (String line : lines) {
                 String[] parts = line.split("/");
+                int memberNum = Integer.parseInt(parts[0]);  // 회원 번호
                 String id = parts[1];
                 String password = parts[2];
                 String name = parts[3];
-                Member member = new Member(id, password, name);
+
+                Member member = new Member(memberNum, id, password, name);
                 members.put(id, member);
             }
             System.out.println("회원 정보 로드 완료");
         }
     }
+
 }

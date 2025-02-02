@@ -3,6 +3,8 @@ package dto;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import dao.BoardDAO;
+
 public class Board {
     private static int num;  // 게시글 번호를 자동으로 증가시키기 위한 변수
     private int boardNum;    // 게시글 번호
@@ -31,8 +33,12 @@ public class Board {
     }
 
     public static int getNextBoardNum() {
-        return ++num;  // 게시글 번호 자동 증가
+        if (num == 0) {  // 초기 값 설정
+            num = BoardDAO.getInstance().getMaxBoardNum();
+        }
+        return ++num;
     }
+
 
     public int getBoardNum() {
         return boardNum;

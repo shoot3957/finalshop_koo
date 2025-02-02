@@ -74,7 +74,7 @@ public class MemberInfo implements MenuCommand {
             member.setPhone(phone);
             member.setAddress(address);
 
-            memberDAO.saveMembers();  // 수정된 정보 저장
+            memberDAO.saveMember(member);  // 수정된 정보 저장
 
             System.out.println("회원 정보가 수정되었습니다.");
         } else {

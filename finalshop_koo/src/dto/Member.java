@@ -12,13 +12,29 @@ public class Member {
 
     // 생성자
     public Member(String id, String pw, String memberName) {
-        this.memberNum = num++; // 회원 번호는 자동 증가
+        this.memberNum = num++;  // 회원 번호 자동 증가
         this.id = id;
         this.pw = pw;
         this.memberName = memberName;
         this.email = "";  // 기본값
         this.phone = "";  // 기본값
         this.address = "";  // 기본값
+    }
+
+    // 기존 회원 정보를 불러올 때 사용하는 생성자
+    public Member(int memberNum, String id, String pw, String memberName) {
+        this.memberNum = memberNum;  // 기존 회원 번호 유지
+        this.id = id;
+        this.pw = pw;
+        this.memberName = memberName;
+        this.email = "";
+        this.phone = "";
+        this.address = "";
+
+        // 기존 회원 정보 중 가장 큰 회원 번호를 static 변수 num에 반영
+        if (memberNum >= num) {
+            num = memberNum + 1;
+        }
     }
 
     // getter 메서드

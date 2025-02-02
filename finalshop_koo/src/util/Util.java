@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -41,12 +43,16 @@ public class Util {
             if (!Files.exists(path.getParent())) {
                 Files.createDirectories(path.getParent());
             }
-            Files.write(path, lines);
+            
+            // 기존 내용 유지하고 덧붙이도록 APPEND 옵션 사용
+            Files.write(path, lines, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+            
             System.out.println(filePath + " 저장 완료");
         } catch (IOException e) {
             System.out.println("파일 저장 실패 (" + filePath + "): " + e.getMessage());
         }
     }
+
 
     // 파일 생성 (디렉토리도 함께 생성)
     public static void createFile(String filePath) {
@@ -63,7 +69,33 @@ public class Util {
             System.out.println("파일 생성 중 오류 발생 (" + filePath + "): " + e.getMessage());
         }
     }
+    
+    public static void appendLineToFile(String filePath, String line) {
+        Path path = Paths.get(filePath);
+        try {
+            // 디렉토리 존재 여부 확인 후 없으면 생성
+            if (!Files.exists(path.getParent())) {
+                Files.createDirectories(path.getParent());
+            }
+            
+            // 한 줄씩 추가 (APPEND 옵션 사용)
+            Files.write(path, Collections.singletonList(line), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+            
+            System.out.println(filePath + "에 데이터 추가 완료");
+        } catch (IOException e) {
+            System.out.println("파일 저장 실패 (" + filePath + "): " + e.getMessage());
+        }
+    }
+    private static String loggedInUserId = ""; // 기본값 ""
 
+    public static void setLoggedInUserId(String userId) {
+        loggedInUserId = userId;
+    }
+
+    public static String getLoggedInUserId() {
+        return loggedInUserId;
+    }
+    
     // 사용자 입력 받기
     public static String getValue(String msg) {
         System.out.print(msg);

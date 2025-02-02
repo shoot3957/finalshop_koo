@@ -13,7 +13,7 @@ public class _AdminMain implements MenuCommand {
 
     @Override
     public void init() {
-        // 초기화 메서드 (필요하다면 추가)
+        
     }
 
     @Override
@@ -25,20 +25,23 @@ public class _AdminMain implements MenuCommand {
 
             int sel = Util.getValue("메뉴 입력", 1, 4);  // 메뉴 선택 1~4 사이
             if (sel == 1) {
-                cont.setNext("AdminMember");
+                cont.setNext("AdminMember");  // 관리자 -> 회원 관리
             } else if (sel == 2) {
-                cont.setNext("AdminItem");
+                cont.setNext("AdminItem");  // 관리자 -> 상품 관리
             } else if (sel == 3) {
-                cont.setNext("AdminBoard");
+                cont.setNext("AdminBoard");  // 관리자 -> 게시판 관리
             } else if (sel == 4) {
                 System.out.println("[ 관리자 로그아웃 ]");
-                cont.setNext(null);
-                return true;  // 로그아웃 후 true 반환
+                cont.setNext(null);  // 로그아웃 시 null 처리
+                return true;  // 로그아웃 후 종료
             }
 
+            // Menu 변경 후 처리
             if (cont.getNext() != null) {
                 return false;  // 메뉴 변경 후 false 반환
             }
         }
     }
+
+
 }

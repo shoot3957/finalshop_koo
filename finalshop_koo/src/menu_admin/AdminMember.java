@@ -24,10 +24,12 @@ public class AdminMember implements MenuCommand {
             } else if (sel == 2) {
                 deleteMember();
             } else if (sel == 0) {
-                return false;  // 뒤로가기
+                return false;  // 뒤로 가기 시 true 반환
             }
         }
     }
+
+
 
     // 회원 목록 보기
     private void showMemberList() {

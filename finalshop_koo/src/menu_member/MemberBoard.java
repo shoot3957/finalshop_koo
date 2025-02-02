@@ -82,15 +82,39 @@ public class MemberBoard implements MenuCommand {
 
     // 게시글 삭제
     void deletePost() {
-        String postId = Util.getValue("삭제할 게시글 번호");
-        BoardDAO boardDAO = BoardDAO.getInstance();
+        String postIdStr = Util.getValue("삭제할 게시글 번호");
+        int postId;
+        
+        try {
+            postId = Integer.parseInt(postIdStr);
+        } catch (NumberFormatException e) {
+            System.out.println("잘못된 게시글 번호 형식입니다.");
+            return;
+        }
 
-        Board post = boardDAO.getBoardByNum(Integer.parseInt(postId));
-        if (post != null && post.getId().equals("현재 유저 ID")) {  // 현재 유저 ID는 로그인한 ID로 대체
-            boardDAO.deletePost(Integer.parseInt(postId));
+        BoardDAO boardDAO = BoardDAO.getInstance();
+        Board post = boardDAO.getBoardByNum(postId);
+
+        if (post == null) {
+            System.out.println("존재하지 않는 게시글 번호입니다.");
+            return;
+        }
+
+        String currentUserId = Util.getLoggedInUserId(); // 현재 로그인한 사용자 ID 가져오기
+        System.out.println("로그인한 ID: " + currentUserId);
+        System.out.println("게시글 작성자 ID: " + post.getId());
+
+        if (!post.getId().equals(currentUserId)) {
+            System.out.println("본인이 작성한 게시글만 삭제할 수 있습니다.");
+            return;
+        }
+
+        if (boardDAO.deletePost(postId)) {
             System.out.println("게시글이 삭제되었습니다.");
         } else {
-            System.out.println("본인이 작성한 게시글만 삭제할 수 있습니다.");
+            System.out.println("게시글 삭제에 실패했습니다.");
         }
     }
+
+
 }
