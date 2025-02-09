@@ -49,7 +49,7 @@ public class MallJoin implements MenuCommand {
             return false;
         }
 
-        // 비밀번호 암호화 처리(필요시 추가)
+        
         if (dao.insertMember(id, pw, name)) {
             System.out.println("[ 회원 추가 완료 ]");
         } else {

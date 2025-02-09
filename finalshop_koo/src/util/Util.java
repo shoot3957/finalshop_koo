@@ -39,15 +39,13 @@ public class Util {
     public static void writeLinesToFile(String filePath, List<String> lines) {
         Path path = Paths.get(filePath);
         try {
-            // 디렉토리 존재 여부 확인 후 없으면 생성
             if (!Files.exists(path.getParent())) {
                 Files.createDirectories(path.getParent());
             }
             
-            // 기존 내용 유지하고 덧붙이도록 APPEND 옵션 사용
-            Files.write(path, lines, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+            Files.write(path, lines, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
             
-            System.out.println(filePath + " 저장 완료");
+            System.out.println(filePath + " 저장 완료 (덮어쓰기)");
         } catch (IOException e) {
             System.out.println("파일 저장 실패 (" + filePath + "): " + e.getMessage());
         }

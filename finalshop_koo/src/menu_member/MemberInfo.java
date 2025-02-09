@@ -1,5 +1,7 @@
 package menu_member;
 
+import java.util.stream.Collectors;
+
 import _mall.MenuCommand;
 import dao.MemberDAO;
 import dto.Member;
@@ -41,6 +43,10 @@ public class MemberInfo implements MenuCommand {
     // 회원 정보 출력
     void showMemberInfo() {
         String loginId = memberDAO.getLoginId();  // 로그인된 회원 ID 가져오기
+        System.out.println("현재 로그인한 ID: " + loginId);  // 디버깅 출력
+        System.out.println("저장된 회원 목록: " + 
+        	    memberDAO.getAllMembers().stream().map(Member::getId).collect(Collectors.toList()));
+
         Member member = memberDAO.getMemberById(loginId);  // 해당 회원 정보 가져오기
 
         if (member != null) {
