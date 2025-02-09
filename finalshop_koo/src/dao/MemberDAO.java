@@ -12,7 +12,7 @@ public class MemberDAO {
     private MemberDAO() {
         members = new HashMap<>();
         loadMembers(); // 초기화 시 파일에서 회원 정보 불러오기
-        System.out.println("🛠 MemberDAO 인스턴스 생성됨!"); // ✅ 싱글톤 체크
+        System.out.println("🛠 MemberDAO 인스턴스 생성됨!");
     }
 
     public static MemberDAO getInstance() {
@@ -25,12 +25,12 @@ public class MemberDAO {
     // 로그인한 사용자 설정
     public void setLoginId(String loginId) {
         this.loginId = loginId;
-        System.out.println("✅ 로그인 ID 설정됨: " + this.loginId); // ✅ 로그 추가
+        System.out.println("로그인 ID 설정됨: " + this.loginId); 
     }
 
     // 로그인한 사용자 ID 반환
     public String getLoginId() {
-        System.out.println("📌 현재 로그인한 ID 반환: " + loginId); // ✅ 로그 추가
+        System.out.println(" 현재 로그인한 ID 반환: " + loginId); 
         return loginId;
     }
 
@@ -64,8 +64,8 @@ public class MemberDAO {
     }
 
     public Member getMemberById(String id) {
-        System.out.println("🔍 getMemberById() 호출: " + id); // ✅ 디버깅 로그 추가
-        System.out.println("📌 현재 저장된 회원 목록: " + members.keySet()); // ✅ 저장된 회원 확인
+        System.out.println("🔍 getMemberById() 호출: " + id); 
+        System.out.println("📌 현재 저장된 회원 목록: " + members.keySet()); 
         return members.get(id);
     }
 
@@ -100,7 +100,7 @@ public class MemberDAO {
                 Member member = new Member(memberNum, id, password, name);
                 members.put(id, member);
             }
-            System.out.println("📌 회원 정보 로드 완료: " + members.keySet()); // ✅ 저장된 회원 확인
+            System.out.println("📌 회원 정보 로드 완료: " + members.keySet()); 
         }
     }
 }

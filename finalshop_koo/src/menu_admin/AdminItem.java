@@ -8,7 +8,7 @@ public class AdminItem implements MenuCommand {
 
     @Override
     public void init() {
-        // 초기화 메서드 (필요하다면 추가)
+       
     }
 
     @Override

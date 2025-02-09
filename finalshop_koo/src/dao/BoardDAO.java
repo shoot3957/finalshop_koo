@@ -114,8 +114,8 @@ public class BoardDAO {
                 try {
                     int boardNum = Integer.parseInt(parts[0]);
                     String title = parts[1];
-                    String contents = parts[2]; // ✅ [수정] 제목 다음에 '내용'!
-                    String id = parts[3];       // ✅ [수정] 내용 다음에 '작성자 ID'!
+                    String contents = parts[2]; 
+                    String id = parts[3];       
                     String date = parts[4];
                     int hits = Integer.parseInt(parts[5]);
 
